@@ -73,7 +73,7 @@ else if (isset($_POST['signup-submit'])) {
                 $stmtHeader->execute();
                 $stmtHeader->close();
 
-                $stmtSeries = $conn->prepare("INSERT INTO series (userId) VALUES (?)");
+                /*$stmtSeries = $conn->prepare("INSERT INTO series (userId) VALUES (?)");
                 $stmtSeries->bind_param("s", $userId);
                 $stmtSeries->execute();
                 $stmtSeries->close();
@@ -81,7 +81,7 @@ else if (isset($_POST['signup-submit'])) {
                 $stmtMusic = $conn->prepare("INSERT INTO music (userId) VALUES (?)");
                 $stmtMusic->bind_param("s", $userId);
                 $stmtMusic->execute();
-                $stmtMusic->close();
+                $stmtMusic->close();*/
 
                 $stmtGetUserId->close();
                 header("Location: login.php?signup=successful");

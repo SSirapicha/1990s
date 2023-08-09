@@ -194,7 +194,9 @@ else {
                     }
                 ?>   
                 <!-- Open popup to add new song -->
-                <button id="openNewMusicFormBtn" class="openNewMusicFormBtn" onclick="document.getElementById('musicNew').style.display = 'block';">+</button> 
+                <button id="openNewMusicFormBtn" class="openNewMusicFormBtn" onclick="document.getElementById('musicNew').style.display = 'block';">
+                    <span style="color:white; font-size:30px; margin-top:8px; cursor:pointer;" class="material-symbols-outlined">add</span>
+                </button> 
             </div>
         </div>
 
@@ -437,7 +439,7 @@ else {
 
                 <!-- Enter year released of the series -->
                 <div class="newSeriesForm">
-                    <label class="newSeriesLabel" for="year">Year released<span style="color:red;">*</span></label>
+                    <label class="newSeriesLabel" for="year">Year Released<span style="color:red;">*</span></label>
                     <input type="number" class="newSeriesInput" name="yearReleased" placeholder="Format: YYYY" onKeyPress="if (this.value.length==4) return false;" required>
                 </div>
 

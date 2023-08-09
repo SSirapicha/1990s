@@ -409,10 +409,8 @@ input[type="file"]::file-selector-button {
 
 /* Button to open new music form */
 .openNewMusicFormBtn {
-    font-size: 36px;
     border: none;
     background-color: black;
-    color: white;
 
     /* Make button circle */
     display: block;
