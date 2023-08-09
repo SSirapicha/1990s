@@ -1,5 +1,6 @@
 <?php 
 
+session_start();
 include("config.php");
 
 $type = $_POST['type'];
@@ -9,8 +10,8 @@ if ($type == 1) {
     $id = $_POST['val'];
 
     // Prepared statement
-    $stmt = $conn->prepare("DELETE from series WHERE id = ?");
-    $stmt->bind_param("i", $id);
+    $stmt = $conn->prepare("DELETE from series WHERE userId = ? AND id = ?");
+    $stmt->bind_param("ii", $_SESSION['userId'], $id);
 
     if ($stmt->execute()) {
         echo '<script>alert("Successfully Deleted!")</script>';
@@ -33,8 +34,8 @@ else if ($type == 2) {
     $type = $_POST['editType'];
 
     // Prepared statement
-    $stmt = $conn->prepare("UPDATE series SET title = ?, yearReleased = ?, type = ?, country = ?, notes = ? WHERE id = ?");
-    $stmt->bind_param("sissss", $title, $yearReleased, $type, $country, $notes, $id);
+    $stmt = $conn->prepare("UPDATE series SET title = ?, yearReleased = ?, type = ?, country = ?, notes = ? WHERE userId = ? AND id = ?");
+    $stmt->bind_param("sisssii", $title, $yearReleased, $type, $country, $notes, $_SESSION['userId'], $id);
     
     if ($stmt->execute()) {
         echo '<script>alert("Successfully Saved!")</script>';

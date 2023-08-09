@@ -1,4 +1,3 @@
-/* index.php */
 * {
     font-family: 'VT323', monospace;
     color: black;
@@ -17,9 +16,10 @@ header {
 }
 
 .headerText {
-    font-size: 30px;
+    font-size: 28px;
     text-align: left;
     margin-top: 8px;
+    margin-right: 20px;
 }
 
 .statusBar {
@@ -72,29 +72,12 @@ body {
     color: transparent;
 }
 
-.seriesNavBtn {
-    color: blue; 
-    cursor: pointer;
-    background-color: inherit;
-    border: none;
-    font-size: 16px;
-    text-decoration: underline;
-    padding: 0px;
-}
-
-.horNavBar {
-    background: #ececec;
-    overflow: hidden;
-    padding-bottom: 2px;
-    width: 82%;
-    float: right;
-}
-
 .username button {
     background-color: inherit;
     float: right;
     border: none;
-    font-size: 18px;
+    font-size: 15px;
+    margin-top: 3px;
 }
 
 .username button:hover {
@@ -106,9 +89,11 @@ body {
     background-color: inherit;
     float: right;
     border: none;
-    font-size: 18px;
+    font-size: 15px;
     text-decoration: underline;
     color: blue;
+    margin-top: 3px;
+    margin-right: 10px;
 }
 
 .logout button:hover {
@@ -123,13 +108,53 @@ body {
     border-radius: 5px;
 }
 
-.navContent, .seriesContent {
+.horNavBar {
+    background: #ececec;
+    overflow: hidden;
+    padding-bottom: 2px;
+    width: 82%;
+    float: right;
+}
+
+.seriesNavBtn {
+    color: blue; 
+    cursor: pointer;
+    background-color: inherit;
+    border: none;
+    font-size: 16px;
+    text-decoration: underline;
+    padding: 0px;
+}
+
+.seriesNavBtn:hover {
+    color: #008ecb;
+}
+
+.navContent, .seriesContent, .musicContent {
     float: right;
     width: 78%;
     overflow: hidden;
 }
 
-.newSeriesTitle, .newSeriesYear {
+.newSeries {
+    margin-top: 8px;
+    background: #ff9eb5; 
+    padding: 15px;
+    padding-bottom: 12px;
+    width: 93%;
+    font-size: 15px;
+}
+
+.newSeriesForm {
+    margin-bottom: 8px;
+}
+
+.newSeriesLabel {
+    display: inline-block;
+    width: 120px;
+}
+
+.newSeriesInput, .newMusicInput {
     width: 150px;
     height: 22px;
     border-color: #000000;
@@ -153,11 +178,11 @@ body {
     margin-top: 3px;
 }
 
-.newSeriesTitle:hover, .newSeriesYear:hover, .newSeriesDropdown:hover, .newSeriesTextarea:hover {
+.newSeriesInput:hover, .newSeriesDropdown:hover, .newSeriesTextarea:hover {
     background-color: #ffebf0;
 }
 
-.newSeriesTitle:focus, .newSeriesYear:focus, .newSeriesDropdown:focus, .newSeriesTextarea:focus {
+.newSeriesInput:focus, .newSeriesDropdown:focus, .newSeriesTextarea:focus {
     outline: none !important;
     background-color: #ffebf0;
 }
@@ -167,22 +192,13 @@ body {
     margin: 0;
 }
 
-.newSeries {
-    margin-top: 8px;
-    background: #ff9eb5; 
-    padding: 15px;
-    padding-bottom: 12px;
-    width: 93%;
-    font-size: 15px;
+.newMusicInput:hover {
+    background-color: #e1f3fc;
 }
 
-.newSeriesForm {
-    margin-bottom: 8px;
-}
-
-.newSeriesLabel {
-    display: inline-block;
-    width: 120px;
+.newMusicInput:focus {
+    outline: none !important;
+    background-color: #e1f3fc;
 }
 
 .posterContainer {
@@ -191,7 +207,19 @@ body {
     height: 211px; 
     float: left;
     margin-right: 15px;
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: white;
+}
+
+.posterMusicContainer {
+    position: relative;
+    width: 125px; 
+    height: 125px; 
+    float: left;
+    margin-right: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -203,15 +231,19 @@ body {
     background-color: #ffebf0;
 }
 
-.drop-zone--over {
+.posterMusicContainer:hover {
+    background-color: #e1f3fc;
+}
+
+.drop-zone--over, .drop-zone--overMusic {
     border-style: solid;
 }
 
-.drop-zone__input {
+.drop-zone__input, .drop-zone__inputMusic {
     display: none;
 }
 
-.drop-zone__thumb {
+.drop-zone__thumb, .drop-zone__thumbMusic {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -229,148 +261,16 @@ body {
     padding-bottom: 6px;
 }
 
-.seriesPoster {
-    opacity: 1;
-    display: block;
-    transition: .3s ease;
-    backface-visibility: hidden;
-    border-radius: 10px;
-}
-
-.middle {
-    transition: .3s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 46%;
-    width: 75%;
-    height: 80%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.seriesContainer:hover .seriesPoster {
-    opacity: 0.6;
-}
-
-.seriesContainer:hover .middle {
-    opacity: 1;
-}
-
-.seriesDescription {
-    padding-top: 50%;
-    background-color: none;
-    color: white;
-    font-size: 13px;
-}
-
-.seriesPopup, .deleteSeriesConfirm {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.seriesPopupContainer {
-    position: absolute;
-    background-color: whitesmoke;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    top: 65%;
-    left: 40%;
-    transform: translate(0, -50%);
-    padding-bottom: 18px;
-    width: 450px;
-    border-radius: 5px;
-    font-size: 15px;
-}
-
-.seriesPopupHeader {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 10px;
-}
-
-.seriesPopupContent {
-    padding-top: 20px;
-    padding-left: 30px;
-    padding-right: 50px;
-}
-
-.editSeriesTitle {
-    border: none;
-    border-bottom: 1px solid black;
-    font-size: 15px;
-    background-color: whitesmoke;
-    width: 186px;
-}
-
-.editSeriesYear, .editSeriesDropdown {
-    border: none;
-    border-bottom: 1px solid black;
-    font-size: 15px;
-    background-color: whitesmoke;
-    width: 100px;
-}
-
-.editSeriesYear::-webkit-outer-spin-button, .editSeriesYear::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.editSeriesTitle:focus, .editSeriesYear:focus, .editSeriesDropdown:focus, .editSeriesNotes:focus {
-    outline: none !important;
-}
-
-.editSeriesTitle:hover, .editSeriesYear:hover, .editSeriesDropdown:hover, .editSeriesNotes:hover {
-    background: #ececec;
-}
-
-.editSeriesNotes {
-    resize: none;
-    border: none;
-    font-size: 15px;
-    background-color: whitesmoke;
-    width: 186px;
-    height: 50px;
-}
-
-.editSeriesNotes::-webkit-scrollbar {
-    width: 2px;
-}
-
-.editSeriesNotes::-webkit-scrollbar-track {
-    background: none; 
-}
-
-.editSeriesNotes::-webkit-scrollbar-thumb {
-    background: #FAFAFA; 
-}
-
-.deleteSeriesConfirmPrompt {
-    position: absolute;
-    top: 41%;
-    left: 46%;
-    transform: translate(0, -50%);
-    width: 280px;
-}
-
-/* displaySeries.php */
-.seriesContainer {
+.musicContainer {
     position: relative;
     width: 125px;
-    height: 176px;
+    height: 125px;
     float: left;
     padding-right: 6px;
     padding-bottom: 6px;
 }
 
-.seriesPoster {
+.seriesPoster, .musicPoster {
     opacity: 1;
     display: block;
     transition: .3s ease;
@@ -391,11 +291,11 @@ body {
     text-align: center;
 }
 
-.seriesContainer:hover .seriesPoster {
+.seriesContainer:hover .seriesPoster, .musicContainer:hover .musicPoster {
     opacity: 0.6;
 }
 
-.seriesContainer:hover .middle {
+.seriesContainer:hover .middle, .musicContainer:hover .middle {
     opacity: 1;
 }
 
@@ -406,7 +306,7 @@ body {
     font-size: 13px;
 }
 
-.seriesPopup, .deleteSeriesConfirm {
+.seriesPopup, .deleteSeriesConfirm, .musicNew {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
@@ -499,4 +399,60 @@ body {
     left: 46%;
     transform: translate(0, -50%);
     width: 280px;
+}
+
+input[type="file"]::file-selector-button {
+    font-family: 'VT323', monospace;
+    margin-bottom: 2px;
+    margin-left: 2px;
+}
+
+/* Button to open new music form */
+.openNewMusicFormBtn {
+    font-size: 36px;
+    border: none;
+    background-color: black;
+    color: white;
+
+    /* Make button circle */
+    display: block;
+    height: 8%;
+    width: 4%;
+    border-radius: 50%;
+
+    /* Make button stick to right bottom corner */
+    position: fixed;
+    right: 3.5%;
+    bottom: 2%;
+}
+
+.openNewMusicFormBtn:hover {
+    cursor: pointer;
+}
+
+.openNewMusicFormBtn:active {
+    transform: translateY(1px);
+}
+
+/* Position of new music form */
+.newMusicForm {
+    position: absolute;
+    background-color: #bde6fc;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    top: 45%;
+    left: 40%;
+    padding-bottom: 18px;
+    padding-top: 18px;
+    padding-left: 25px;
+    width: 450px;
+    border-radius: 5px;
+    font-size: 15px;
+    animation-name: animateNewMusicForm;
+    animation-duration: 0.7s;
+}
+
+/* Zoom animation when open new music form */
+@keyframes animateNewMusicForm {
+    from {transform: scale(0);}
+    to   {transform: scale(1);}
 }

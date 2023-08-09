@@ -1,15 +1,16 @@
 <?php 
 
+session_start();
 include("config.php");
 
 $type = $_POST['type'];
 
-// Header status message
+// Update status message
 if ($type == 1) {
     $statusMsg = $_POST['val'];
 
     // Prepared statement
-    $stmt = $conn->prepare("UPDATE header SET statusMsg = ?");
+    $stmt = $conn->prepare("UPDATE header SET statusMsg = ? WHERE userId =". $_SESSION['userId']);
     $stmt->bind_param("s", $statusMsg);
 
     if ($stmt->execute()) {
@@ -21,12 +22,12 @@ if ($type == 1) {
     $stmt->close();
 }
 
-// Emojis on horizontal navigation bar
+// Update emoji
 else if ($type == 2) {
     $navEmoji = $_POST['val'];
 
     // Prepared statement
-    $stmt = $conn->prepare("UPDATE header SET emoji = ?");
+    $stmt = $conn->prepare("UPDATE header SET emoji = ? WHERE userId =". $_SESSION['userId']);
     $stmt->bind_param("s", $navEmoji);
 
     if ($stmt->execute()) {
@@ -38,20 +39,20 @@ else if ($type == 2) {
     $stmt->close();
 }
 
-// Header images for slideshow
-else if (isset($_POST['saveHeaderImg1'])) {
+// Update header images
+else if ($_FILES["headerImg1"]["name"]) {
     // Get uploaded header image
     $filename = $_FILES["headerImg1"]["name"];
     $tempname = $_FILES["headerImg1"]["tmp_name"];
     $folder = "./header/" . $filename;
 
     // Prepared statement
-    $stmt = $conn->prepare("UPDATE header SET img1 = ?");
+    $stmt = $conn->prepare("UPDATE header SET img1 = ? WHERE userId =". $_SESSION['userId']);
     $stmt->bind_param("s", $filename);
 
     // Move the uploaded image into the folder: image
     if (move_uploaded_file($tempname, $folder) && $stmt->execute()) {
-        header('location:index.php');   
+        echo '<script>alert("Successfully Updated!");</script>';  
     } 
     else {
         die(mysqli_error($conn));
@@ -59,17 +60,17 @@ else if (isset($_POST['saveHeaderImg1'])) {
     $stmt->close();
 }
 
-else if (isset($_POST['saveHeaderImg2'])) {
+else if ($_FILES["headerImg2"]["name"]) {
     $filename = $_FILES["headerImg2"]["name"];
     $tempname = $_FILES["headerImg2"]["tmp_name"];
     $folder = "./header/" . $filename;
 
     // Prepared statement
-    $stmt = $conn->prepare("UPDATE header SET img2 = ?");
+    $stmt = $conn->prepare("UPDATE header SET img2 = ? WHERE userId =". $_SESSION['userId']);
     $stmt->bind_param("s", $filename);
 
     if (move_uploaded_file($tempname, $folder) && $stmt->execute()) {
-        header('location:index.php');   
+        echo '<script>alert("Successfully Updated!");</script>';  
     } 
     else {
         die(mysqli_error($conn));
@@ -77,17 +78,17 @@ else if (isset($_POST['saveHeaderImg2'])) {
     $stmt->close();
 }
 
-else if (isset($_POST['saveHeaderImg3'])) {
+else if ($_FILES["headerImg3"]["name"]) {
     $filename = $_FILES["headerImg3"]["name"];
     $tempname = $_FILES["headerImg3"]["tmp_name"];
     $folder = "./header/" . $filename;
 
     // Prepared statement
-    $stmt = $conn->prepare("UPDATE header SET img3 = ?");
+    $stmt = $conn->prepare("UPDATE header SET img3 = ? WHERE userId =". $_SESSION['userId']);
     $stmt->bind_param("s", $filename);
 
     if (move_uploaded_file($tempname, $folder) && $stmt->execute()) {
-        header('location:index.php');   
+        echo '<script>alert("Successfully Updated!");</script>';
     } 
     else {
         die(mysqli_error($conn));

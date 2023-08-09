@@ -1,7 +1,44 @@
 CREATE schema db DEFAULT CHARSET = utf8mb4 DEFAULT COLLATE = utf8mb4_unicode_ci;
 use db;
 
+create table login (
+    userId int not null AUTO_INCREMENT,
+    username varchar(50) not null,
+    password varchar(50) not null,
+    PRIMARY KEY(userId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+insert into login (username, password) values ('sswttn','789456');
+insert into login (username, password) values ('hoonie','123456');
+
+create table header (
+    userId int not null,
+    img1 varchar(50),
+    img2 varchar(50),
+    img3 varchar(50),
+    statusMsg varchar(45),
+    emoji varchar(100),
+    PRIMARY KEY(userId),
+    FOREIGN KEY(userId) REFERENCES login(userId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+insert into header (userId, img1, img2, img3, statusMsg, emoji) values (1, 'header1.jpg','header2.jpg','header3.png', 'user1','111');
+insert into header (userId, img1, img2, img3, statusMsg, emoji) values (2, 'header3.png','header1.jpg','header2.jpg', 'user2','222');
+
+create table music (
+    userId int not null,
+    id int not null AUTO_INCREMENT,
+    title varchar(50) not null,
+    artist varchar(50) not null,
+    audio varchar(50) not null,
+    poster varchar(50) not null,
+    PRIMARY KEY(id),
+    FOREIGN KEY(userId) REFERENCES login(userId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
+insert into music (userId, title, artist, audio, poster) values (1, "Hurt", "NewJeans", "newjeans_hurt.mp3", "newjeans_hurt.jpg");
+insert into music (userId, title, artist, audio, poster) values (1, "ETA", "NewJeans", "newjeans_eta.mp3", "newjeans_getup.png");
+insert into music (userId, title, artist, audio, poster) values (1, "Get Up", "NewJeans", "newjeans_getup.mp3", "newjeans_getup.png");
+
 create table series (
+    userId int not null,
     id int not null AUTO_INCREMENT,
     title varchar(50) not null,
     yearReleased int not null,
@@ -9,13 +46,6 @@ create table series (
     country varchar(20) not null, 
     notes varchar(100) null,
     poster varchar(50) not null,
-    primary key(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-create table header (
-    img1 varchar(50),
-    img2 varchar(50),
-    img3 varchar(50),
-    statusMsg varchar(45),
-    emoji varchar(100)
+    PRIMARY KEY(id),
+    FOREIGN KEY(userId) REFERENCES login(userId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
