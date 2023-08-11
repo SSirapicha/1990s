@@ -4,6 +4,15 @@
     cursor: default;
 }
 
+.alertContainer {
+    padding: 15px;
+    padding-left: 20px;
+    height: 15px;
+    background-color: #dff0d8;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
 header {
     background-color: white;
     padding-left: 90px;

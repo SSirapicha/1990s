@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-include("config.php");
+include("../db/config.php");
 
 // login.php
 if (isset($_POST['login-submit'])) {
@@ -21,7 +21,7 @@ if (isset($_POST['login-submit'])) {
             // If password is correct, log in
             if ($data['password'] == $password) {
                 $_SESSION['userId'] = $data['userId'];
-                header("Location: index.php?login=successful"); 
+                header("Location: ../index.php?login=successful"); 
             }
             else {
                 header("Location: login.php?login=fail,username-and-password-do-not-match"); 
@@ -72,16 +72,6 @@ else if (isset($_POST['signup-submit'])) {
                 $stmtHeader->bind_param("s", $userId);
                 $stmtHeader->execute();
                 $stmtHeader->close();
-
-                /*$stmtSeries = $conn->prepare("INSERT INTO series (userId) VALUES (?)");
-                $stmtSeries->bind_param("s", $userId);
-                $stmtSeries->execute();
-                $stmtSeries->close();
-
-                $stmtMusic = $conn->prepare("INSERT INTO music (userId) VALUES (?)");
-                $stmtMusic->bind_param("s", $userId);
-                $stmtMusic->execute();
-                $stmtMusic->close();*/
 
                 $stmtGetUserId->close();
                 header("Location: login.php?signup=successful");

@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-include("config.php");
+include("../db/config.php");
 
 $title = $_POST['title'];
 $artist = $_POST['artist'];
@@ -22,7 +22,12 @@ $stmt->bind_param("issss", $_SESSION['userId'], $title, $artist, $filenameAudio,
 
 // Move the uploaded files into the given folder
 if (move_uploaded_file($tempnamePoster, $folderPoster) && move_uploaded_file($tempnameAudio, $folderAudio) && $stmt->execute()) {
-    echo '<script>alert("Successfully Saved!")</script>';
+    echo    '<script>
+                alertPopup("Success!","<i>';
+    echo        $title;
+    echo        '</i> has been added.");
+            </script>';
+            
     echo '<script>document.getElementById("musicNew").style.display = "none";</script>';
 } 
 else {
